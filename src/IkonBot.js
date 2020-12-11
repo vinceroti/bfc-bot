@@ -80,7 +80,7 @@ class IkonBot {
       const timestamp = new Date().toLocaleTimeString();
       const dates = innerText.data[0].unavailable_dates;
 
-      if (dates.includes(this.date)) {
+      if (!dates.includes(this.date)) {
         this.failureMsg(`✖ ${timestamp} :: DAY IS UNAVAILABLE`);
         this.resetSuccess();
       } else {
@@ -97,7 +97,7 @@ class IkonBot {
   successNotify(timestamp) {
     const message = `🚀🚨 ✔ ${timestamp} :: DAY IS AVAILABLE - SNAG IT UP 🚨🚀`;
     this.bgSuccessMsg(message);
-    if (this.successTries >= 10) this.resetSuccess();
+    if (this.successTries >= 15) this.resetSuccess();
 
     if (!this.success) {
       notifier.notify({
