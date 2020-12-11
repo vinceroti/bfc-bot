@@ -97,7 +97,7 @@ class IkonBot {
   successNotify(timestamp) {
     const message = `🚀🚨 ✔ ${timestamp} :: DAY IS AVAILABLE - SNAG IT UP 🚨🚀`;
     this.bgSuccessMsg(message);
-    if (this.successTries >= 3) this.resetSuccess();
+    if (this.successTries >= 10) this.resetSuccess();
 
     if (!this.success) {
       notifier.notify({
