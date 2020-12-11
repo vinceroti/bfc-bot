@@ -80,7 +80,7 @@ class IkonBot {
       const timestamp = new Date().toLocaleTimeString();
       const dates = innerText.data[0].unavailable_dates;
 
-      if (!dates.includes(this.date)) {
+      if (dates.includes(this.date)) {
         this.failureMsg(`✖ ${timestamp} :: DAY IS UNAVAILABLE`);
         this.resetSuccess();
       } else {
