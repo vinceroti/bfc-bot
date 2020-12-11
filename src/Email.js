@@ -4,7 +4,7 @@ import "dotenv/config";
 
 const username = process.env["EMAIL_USERNAME"];
 const password = process.env["EMAIL_PASSWORD"];
-const emails = process.env["EMAILS"].split(",");
+const emails = process.env["EMAILS"] ? process.env["EMAILS"].split(",") : [];
 
 const transportOptions = {};
 

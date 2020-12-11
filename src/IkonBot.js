@@ -34,7 +34,7 @@ class IkonBot {
         waitUntil: "networkidle0",
       });
       if (this.page.url().includes("myaccount")) {
-        console.log(chalk.green("✔ Session Loaded :: Logged in"));
+        this.successMsg("✔ Session Loaded :: Logged in");
         return;
       }
       await this.page.type("#email", this.userName);
@@ -43,13 +43,11 @@ class IkonBot {
         this.page.click(".submit.amp-button.primary"),
         this.page.waitForNavigation({ waitUntil: "networkidle0" }),
       ]);
-      console.log(chalk.green("Session Created :: Logged In"));
+      this.successMsg("✔ Session Created :: Logged In");
       await this.saveCookies();
     } catch (error) {
-      console.error(
-        chalk.red(
-          `✖ Failed to login :: Check .env file to make sure you have the correct email and pass. Otherwise, SEEK DEV HELP 😨`
-        )
+      this.failureMsg(
+        `✖ Failed to login :: Check .env file to make sure you have the correct email and pass. Otherwise, SEEK DEV HELP 😨`
       );
       process.exit();
     }
@@ -65,7 +63,7 @@ class IkonBot {
       const cookies = JSON.parse(cookiesString);
       await this.page.setCookie(...cookies);
     } catch (error) {
-      console.error(chalk.yellow(`✖ No Cookies found or failed to load`));
+      this.infoMsg(`✖ No Cookies found or failed to load`);
     }
   }
   async getDays() {
@@ -82,9 +80,12 @@ class IkonBot {
       const timestamp = new Date().toLocaleTimeString();
       const dates = innerText.data[0].unavailable_dates;
 
-      !dates.includes(this.date)
-        ? this.failureMsg(timestamp)
-        : this.successNotify(timestamp);
+      if (dates.includes(this.date)) {
+        this.failureMsg(`✖ ${timestamp} :: DAY IS UNAVAILABLE`);
+        this.resetSuccess();
+      } else {
+        this.successNotify(timestamp);
+      }
 
       setTimeout(() => {
         this.getDays();
@@ -93,20 +94,9 @@ class IkonBot {
       console.error(error);
     }
   }
-  failureMsg(msg) {
-    console.log(chalk.red(`✖ ${msg} :: DAY IS UNAVAILABLE`));
-    this.resetSuccess();
-  }
-  resetSuccess() {
-    this.success = false;
-    this.successTries = 0;
-  }
-  successMsg(msg) {
-    console.log(chalk.bgGreen.white.bold(msg));
-  }
   successNotify(timestamp) {
     const message = `🚀🚨 ✔ ${timestamp} :: DAY IS AVAILABLE - SNAG IT UP 🚨🚀`;
-    this.successMsg(message);
+    this.bgSuccessMsg(message);
     if (this.successTries >= 3) this.resetSuccess();
 
     if (!this.success) {
@@ -121,11 +111,25 @@ class IkonBot {
   }
   validateDate() {
     if (!date(this.date, "boolean")) {
-      console.error(
-        chalk.red(`✖ INVALID DATE :: Check .env for correct format`)
-      );
+      this.failureMsg(`✖ INVALID DATE :: Check .env for correct format`);
       process.exit();
     }
+  }
+  resetSuccess() {
+    this.success = false;
+    this.successTries = 0;
+  }
+  infoMsg(msg) {
+    console.log(chalk.yellow(msg));
+  }
+  failureMsg(msg) {
+    console.log(chalk.red(msg));
+  }
+  successMsg(msg) {
+    console.log(chalk.green(msg));
+  }
+  bgSuccessMsg(msg) {
+    console.log(chalk.bgGreen.white.bold(msg));
   }
 }
 
