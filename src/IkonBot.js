@@ -12,7 +12,6 @@ class IkonBot {
     this.date = process.env["IKON_DATE"];
     this.userName = process.env["IKON_USERNAME"];
     this.pass = process.env["IKON_PASS"];
-    console.log(process.env["IKON_USERNAME"]);
     this.init();
   }
   async init() {
