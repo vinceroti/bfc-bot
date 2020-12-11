@@ -9,9 +9,10 @@ class IkonBot {
     this.page = "";
     this.client = "";
     this.baseUrl = "https://account.ikonpass.com";
-    this.date = "2020-12-13";
-    this.userName = "";
-    this.pass = "";
+    this.date = process.env["IKON_DATE"];
+    this.userName = process.env["IKON_USERNAME"];
+    this.pass = process.env["IKON_PASS"];
+    console.log(process.env["IKON_USERNAME"]);
     this.init();
   }
   async init() {
@@ -37,7 +38,6 @@ class IkonBot {
         this.page.click(".submit.amp-button.primary"),
         this.page.waitForNavigation({ waitUntil: "networkidle0" }),
       ]);
-
       console.log(chalk.green("Session Created :: Logged In"));
       await this.saveCookies();
     } catch (error) {
@@ -70,17 +70,12 @@ class IkonBot {
         return JSON.parse(document.querySelector("body").innerText);
       });
       const timestamp = new Date().toLocaleTimeString();
+      const dates = innerText.data[0].unavailable_dates;
 
-      if (innerText.data[0].unavailable_dates.includes(this.date)) {
-        console.log(chalk.red(`✖ ${timestamp} :: DAY IS UNAVAILABLE`));
-      } else {
-        const message = `🚀🚨 ✔ ${timestamp} :: DAY IS AVAILABLE - SNAG IT UP 🚨🚀`;
-        notifier.notify({
-          message: message,
-          sound: true,
-        });
-        console.log(chalk.bgGreen.white.bold(message));
-      }
+      dates.includes(this.date)
+        ? this.failureNotify(timestamp)
+        : this.successfulNotify(timestamp);
+
       setTimeout(() => {
         this.getDays();
       }, 30000);
@@ -88,6 +83,19 @@ class IkonBot {
       console.error(error);
     }
   }
+  failureNotify(timestamp) {
+    console.log(chalk.red(`✖ ${timestamp} :: DAY IS UNAVAILABLE`));
+  }
+  successfulNotify(timestamp) {
+    const message = `🚀🚨 ✔ ${timestamp} :: DAY IS AVAILABLE - SNAG IT UP 🚨🚀`;
+    notifier.notify({
+      message: message,
+      sound: true,
+    });
+    console.log(chalk.bgGreen.white.bold(message));
+    this.sendText();
+  }
+  sendText() {}
 }
 
 export default IkonBot;

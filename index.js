@@ -1,5 +1,6 @@
 import IkonBot from "./src/IkonBot";
 import figlet from "figlet";
+import "dotenv/config";
 
 figlet("Ikon Bot", function (err, data) {
   if (err) {
