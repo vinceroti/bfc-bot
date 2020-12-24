@@ -6,15 +6,27 @@ import date from "validate-date";
 import { sendEmail } from "./Email";
 
 class IkonBot {
-  constructor() {
+  constructor(
+    date = process.env["IKON_DATE"],
+    pass = process.env["IKON_PASS"],
+    userName = process.env["IKON_USERNAME"],
+    email = process.env["USE_EMAIL"].toLowerCase(),
+    emailUser = process.env["EMAIL_USERNAME"],
+    emailPass = process.env["EMAIL_PASSWORD"],
+    emails = process.env["EMAILS"]
+  ) {
     this.browser = "";
     this.page = "";
     this.client = "";
     this.baseUrl = "https://account.ikonpass.com";
-    this.date = process.env["IKON_DATE"];
+    this.date = date;
     this.loginUrl = `${this.baseUrl}/en/login`;
-    this.userName = process.env["IKON_USERNAME"];
-    this.pass = process.env["IKON_PASS"];
+    this.userName = userName;
+    this.pass = pass;
+    this.email = email === "yes" ? true : false;
+    this.emailUser = emailUser;
+    this.emailPass = emailPass;
+    this.emails = emails;
     this.success = false;
     this.successTries = 0;
     this.init();
@@ -69,7 +81,7 @@ class IkonBot {
   async getDays() {
     try {
       await this.page.goto(
-        `${this.baseUrl}/api/v2/reservation-availability/10`,
+        `${this.baseUrl}/api/v2/reservation-availability/29`,
         {
           waitUntil: "networkidle0",
         }
@@ -104,7 +116,7 @@ class IkonBot {
         message,
         sound: true,
       });
-      sendEmail(this.loginUrl);
+      if (this.email) sendEmail(this.loginUrl, this.date);
       this.success = true;
     }
     this.successTries++;

@@ -20,7 +20,7 @@ export const transporter = nodemailer.createTransport({
   ...transportOptions,
 });
 
-export function sendEmail(url) {
+export function sendEmail(url, date) {
   emails.forEach((e) => {
     if (username && password) {
       console.log(chalk.yellow("↗ sending email"));
@@ -28,7 +28,7 @@ export function sendEmail(url) {
       const mailOptions = {
         from: username,
         subject: "Ikon Bot - Your Day is AVAILABLE!",
-        text: `${process.env["IKON_DATE"]} has an opening, go snag it. Also tell Vince he is awesome. - ${url}`,
+        text: `${date} has an opening, go snag it. Also tell Vince he is awesome. - ${url}`,
         to: e,
       };
 
