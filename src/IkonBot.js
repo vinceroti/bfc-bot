@@ -89,7 +89,7 @@ class IkonBot {
 
       setTimeout(() => {
         this.getDays();
-      }, 30000);
+      }, 20000);
     } catch (error) {
       console.error(error);
     }
