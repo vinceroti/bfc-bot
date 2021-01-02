@@ -18,6 +18,7 @@ async function ask(key, message, validate = false) {
     message,
     validate,
   });
+
   updateEnv(key, response[key]);
   return response[key];
 }

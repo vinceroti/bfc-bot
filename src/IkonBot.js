@@ -3,7 +3,7 @@ import fs from "fs/promises";
 import chalk from "chalk";
 import notifier from "node-notifier";
 import date from "validate-date";
-import { sendEmail } from "./Email";
+import { sendEmail, setEmail } from "./Email";
 
 class IkonBot {
   constructor(
@@ -36,6 +36,7 @@ class IkonBot {
     this.page = await this.browser.newPage();
     this.client = await this.page.target().createCDPSession();
     this.validateDate();
+    setEmail(this.emailUser, this.emailPass, this.emails);
     await this.setCookies();
     await this.login();
     await this.getDays();

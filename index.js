@@ -44,7 +44,7 @@ async function setupEnv(ikonDate) {
     "What is your IKON password? (enter to use .env)"
   );
 
-  const useEmail = askEmail();
+  const useEmail = await askEmail();
 
   if (useEmail === "no")
     return new IkonBot(ikonDate, ikonPass, ikonUser, useEmail);
@@ -61,6 +61,8 @@ async function setupEnv(ikonDate) {
     email.emails
   );
 }
+
+//init function
 (async () => {
   try {
     await draw;
@@ -75,7 +77,7 @@ async function setupEnv(ikonDate) {
       return date(value, "boolean");
     }
   );
-  const useEnv = await askToggle("Would you like to setup your config file?");
+  const useEnv = await askToggle("Would you like to run .env setup?");
 
   if (!useEnv) return new IkonBot();
   await setupEnv(ikonDate);
