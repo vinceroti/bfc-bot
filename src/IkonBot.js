@@ -82,7 +82,7 @@ class IkonBot {
   async getDays() {
     try {
       await this.page.goto(
-        `${this.baseUrl}/api/v2/reservation-availability/29`,
+        `${this.baseUrl}/api/v2/reservation-availability/10`,
         {
           waitUntil: "networkidle0",
         }
