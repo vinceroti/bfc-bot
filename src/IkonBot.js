@@ -32,7 +32,7 @@ class IkonBot {
     this.init();
   }
   async init() {
-    this.browser = await puppeteer.launch({ headless: false });
+    this.browser = await puppeteer.launch();
     this.page = await this.browser.newPage();
     this.client = await this.page.target().createCDPSession();
     this.validateDate();
