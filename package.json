@@ -15,20 +15,22 @@
     "enquirer": "^2.3.6",
     "envfile": "^6.14.0",
     "figlet": "^1.5.0",
-    "node-notifier": "^8.0.0",
+    "node-notifier": "^8.0.1",
     "nodemailer": "^6.4.17",
-    "npm": "^6.14.9",
+    "npm": "^6.14.11",
     "puppeteer": "^5.5.0",
+    "puppeteer-extra": "^3.1.16",
+    "puppeteer-extra-plugin-stealth": "^2.6.7",
     "validate-date": "^2.0.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.15.0",
+    "eslint": "^7.18.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-loader": "^4.0.2",
-    "eslint-plugin-prettier": "^3.2.0",
+    "eslint-plugin-prettier": "^3.3.1",
     "prettier": "^2.2.1",
-    "webpack": "^4.43.0",
+    "webpack": "^4.46.0",
     "webpack-cli": "^3.3.11",
     "webpack-node-externals": "^2.5.2"
   }

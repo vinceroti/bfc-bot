@@ -32,7 +32,7 @@ class IkonBot {
     this.init();
   }
   async init() {
-    this.browser = await puppeteer.launch();
+    this.browser = await puppeteer.launch({ headless: false });
     this.page = await this.browser.newPage();
     this.client = await this.page.target().createCDPSession();
     this.validateDate();
@@ -60,7 +60,7 @@ class IkonBot {
       await this.saveCookies();
     } catch (error) {
       this.failureMsg(
-        `✖ Failed to login :: Check .env file to make sure you have the correct email and pass. Otherwise, SEEK DEV HELP 😨`
+        `✖ Failed to login :: Check .env file to make sure you have the correct email and pass. Otherwise, SEEK DEV HELP 😨 - ${error}`
       );
       process.exit();
     }
