@@ -36,6 +36,9 @@ class IkonBot {
     this.page = await this.browser.newPage();
     this.client = await this.page.target().createCDPSession();
     this.validateDate();
+    this.page.setUserAgent(
+      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36"
+    );
     setEmail(this.emailUser, this.emailPass, this.emails);
     await this.setCookies();
     await this.login();
