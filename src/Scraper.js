@@ -4,6 +4,10 @@ import chalk from "chalk";
 import notifier from "node-notifier";
 import { exec } from "child_process";
 
+const $BESTBUY_ADD_TO_CART = $BESTBUY_ADD_TO_CART;
+const $BEST_BUY = "bestbuy";
+const $NEWEGG = "newegg";
+
 // Enable stealth mode to avoid bot detection
 puppeteer.use(StealthPlugin());
 
@@ -13,27 +17,27 @@ class Scraper {
       {
         url:
           "https://www.newegg.com/powercolor-reaper-rx9070xt-16g-a-amd-radeon-rx-9070-xt-16gb-gddr6/p/N82E16814131871",
-        provider: "newegg",
+        provider: $NEWEGG,
       },
       {
         url:
           "https://www.newegg.com/gigabyte-gv-r9070xtgaming-16gd-amd-radeon-rx-9070-xt-16gb-gddr6/p/N82E16814932783",
-        provider: "newegg",
+        provider: $NEWEGG,
       },
       {
         url:
           "https://www.newegg.com/xfx-swift-rx-97tswf3w9-amd-radeon-rx-9070-xt-16gb-gddr6/p/N82E16814150907",
-        provider: "newegg",
+        provider: $NEWEGG,
       },
       {
         url:
           "https://www.bestbuy.com/site/xfx-swift-amd-radeon-rx-9070xt-16gb-gddr6-pci-express-5-0-gaming-graphics-card-black/6620455.p?skuId=6620455",
-        provider: "bestbuy",
+        provider: $BEST_BUY,
       },
       {
         url:
           "https://www.bestbuy.com/site/gigabyte-radeon-rx-9070-xt-gaming-16g-gddr6-pci-express-5-0-graphics-card-black/6622482.p?skuId=6622482",
-        provider: "bestbuy",
+        provider: $BEST_BUY,
       },
     ];
     this.success = false;
@@ -108,15 +112,15 @@ class Scraper {
   }
 
   async evaluatePageContent(urlObj) {
-    if (urlObj.provider === "bestbuy") {
-      const addToCartButton = await this.page.$(".add-to-cart-button");
+    if (urlObj.provider === $BEST_BUY) {
+      const addToCartButton = await this.page.$($BESTBUY_ADD_TO_CART);
       return addToCartButton
         ? await this.page.evaluate(
             (button) => button.innerText,
             addToCartButton
           )
         : "";
-    } else if (urlObj.provider === "newegg") {
+    } else if (urlObj.provider === $NEWEGG) {
       return await this.page.evaluate(() => document.body.innerText);
     }
     return "";
