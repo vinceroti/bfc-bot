@@ -54,7 +54,7 @@ function setClose() {
   });
 
   rl.on("close", function () {
-    console.log("Thanks for using Ikon Bot! 👍");
+    console.log("Thanks for using GPU Scraper! 👍");
     process.exit(0);
   });
 }

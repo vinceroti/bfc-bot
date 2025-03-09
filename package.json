@@ -18,9 +18,9 @@
     "node-notifier": "^8.0.1",
     "nodemailer": "^6.4.17",
     "npm": "^6.14.11",
-    "puppeteer": "^5.5.0",
-    "puppeteer-extra": "^3.1.16",
-    "puppeteer-extra-plugin-stealth": "^2.6.7",
+    "puppeteer": "^19.7.5",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
     "validate-date": "^2.0.0"
   },
   "devDependencies": {
