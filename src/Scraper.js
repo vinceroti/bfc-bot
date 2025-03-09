@@ -149,18 +149,7 @@ class Scraper {
     console.log(chalk.bgGreen.white.bold(message));
 
     if (!this.externalBrowserOpen[urlObj.provider]) {
-      const openCommand =
-        process.platform === "darwin"
-          ? `open "${urlObj.url}"` // macOS
-          : process.platform === "win32"
-          ? `start "" "${urlObj.url}"` // Windows
-          : `xdg-open "${urlObj.url}"`; // Linux
-
-      exec(openCommand, (error) => {
-        if (error) {
-          console.error(chalk.red("❌ Failed to open browser:"), error);
-        }
-      });
+      this.openExternalBrowser(urlObj.url);
     }
 
     if (!this.success || this.successTries < 3) {
@@ -170,6 +159,21 @@ class Scraper {
     }
 
     if (++this.successTries >= 15) this.resetSuccess();
+  }
+
+  openExternalBrowser(url) {
+    exec(
+      process.platform === "darwin"
+        ? `open "${url}"` // macOS
+        : process.platform === "win32"
+        ? `start "" "${url}"` // Windows
+        : `xdg-open "${url}"`, // Linux
+      (error) => {
+        if (error) {
+          console.error(chalk.red("❌ Failed to open browser:"), error);
+        }
+      }
+    );
   }
 
   resetSuccess() {
