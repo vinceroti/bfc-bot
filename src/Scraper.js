@@ -4,7 +4,7 @@ import chalk from "chalk";
 import notifier from "node-notifier";
 import { exec } from "child_process";
 
-const $BESTBUY_ADD_TO_CART = $BESTBUY_ADD_TO_CART;
+const $BESTBUY_ADD_TO_CART = ".add-to-cart-button";
 const $BEST_BUY = "bestbuy";
 const $NEWEGG = "newegg";
 
