@@ -26,6 +26,16 @@ class Scraper {
       },
       {
         url:
+          "https://www.newegg.com/gigabyte-gv-r9070xtgaming-oc-16gd-amd-radeon-rx-9070-xt-16gb-gddr6/p/N82E16814932751",
+        provider: $NEWEGG,
+      },
+      {
+        url:
+          "https://www.newegg.com/powercolor-hellhound-rx9070xt-16g-l-oc-amd-radeon-rx-9070-xt-16gb-gddr6/p/N82E16814131870",
+        provider: $NEWEGG,
+      },
+      {
+        url:
           "https://www.newegg.com/xfx-swift-rx-97tswf3w9-amd-radeon-rx-9070-xt-16gb-gddr6/p/N82E16814150907",
         provider: $NEWEGG,
       },
@@ -37,6 +47,11 @@ class Scraper {
       {
         url:
           "https://www.bestbuy.com/site/gigabyte-radeon-rx-9070-xt-gaming-16g-gddr6-pci-express-5-0-graphics-card-black/6622482.p?skuId=6622482",
+        provider: $BEST_BUY,
+      },
+      {
+        url:
+          "https://www.bestbuy.com/site/gigabyte-radeon-rx-9070-xt-gaming-oc-16g-gddr6-pci-express-5-0-graphics-card-black/6617866.p?skuId=6617866",
         provider: $BEST_BUY,
       },
     ];
@@ -103,7 +118,7 @@ class Scraper {
         console.log(
           chalk.red(`✖ ${urlObj.provider}: ERROR - ${error.message}`)
         );
-        if (this.page.isClosed()) {
+        if (this.page.isClosed() || error.message.includes("closed")) {
           console.log(chalk.yellow("🔄 Re-creating browser..."));
           await this.createBrowser();
         }
